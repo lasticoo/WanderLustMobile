@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginPageActivity"
+    android:background="@drawable/login_bacground">
+
+    <ImageView
+        android:id="@+id/homepagelogo"
+        android:layout_width="142dp"
+        android:layout_height="83dp"
+        android:src="@drawable/homepagelogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/username_label"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="440dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Username"
+        android:textColor="@color/primarycolor"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homepagelogo" />
+
+    <EditText
+        android:id="@+id/txt_username"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_textfield_lr"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Username"
+        android:textAlignment="center"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/username_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="0dp"/>
+
+    <TextView
+        android:id="@+id/password_label"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:text="Password"
+        android:fontFamily="@font/poppinsbold"
+        android:textSize="20sp"
+        android:textColor="@color/primarycolor"
+        app:layout_constraintTop_toBottomOf="@id/txt_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/txt_password"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_textfield_lr"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Password"
+        android:textAlignment="center"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/password_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="0dp"/>
+
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_button"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="Login"
+        app:layout_constraintTop_toBottomOf="@id/txt_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/belumpunyakun1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="Belum punya akun ? "
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_button" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:id="@+id/belumpunyakun2"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="Belum punya akun ? "
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_button" />
+
+    <TextView
+        android:id="@+id/buatakun1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="buat akun disini! "
+        android:textSize="18dp"
+        android:textColor="@android:color/black"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/belumpunyakun1" />>
+
+    <TextView
+        android:id="@+id/buatakun2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="buat akun disini! "
+        android:textSize="18dp"
+        android:textColor="@android:color/black"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/belumpunyakun1" />>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

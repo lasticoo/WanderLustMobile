@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.WanderLust" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary" type="color">@color/primarycolor</item>
+        <item name="colorSecondary" type="color">@color/secondarycolor</item>
+</style>
+</resources>
