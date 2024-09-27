@@ -13,13 +13,10 @@
         android:theme="@style/Theme.WanderLust"
         tools:targetApi="31">
         <activity
-            android:name=".DashboardPageActivity"
+            android:name=".DashboardFragment"
             android:exported="false" />
         <activity
-            android:name=".RegisterPageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginPageActivity"
+            android:name=".main.DashboardFragment"
             android:exported="false" />
         <activity
             android:name=".HomePageActivity"
@@ -30,6 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RegisterPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardPageActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

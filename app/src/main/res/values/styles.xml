@@ -3,5 +3,6 @@
     <style name="Theme.WanderLust" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary" type="color">@color/primarycolor</item>
         <item name="colorSecondary" type="color">@color/secondarycolor</item>
+        <item name="android:windowTranslucentNavigation">true</item>
 </style>
 </resources>
