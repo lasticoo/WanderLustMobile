@@ -1,14 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_dashboard"
-        android:title="Dashboard"
-        android:icon="@drawable/dashboard_home"/>
-    <item
-        android:id="@+id/nav_berita"
-        android:title="Berita"
-        android:icon="@drawable/dashboard_berita"/>
-    <item
-        android:id="@+id/nav_profil"
-        android:icon="@drawable/dashboard_profile"
-        android:title="Profil" />
+
+    <group>
+        <item
+            android:id="@+id/profile"
+            android:title=""
+            android:icon="@drawable/bg_home"
+            />
+        <item
+            android:id="@+id/home"
+            android:title=""
+            android:icon="@drawable/bg_berita"/>
+        <item
+            android:id="@+id/settings"
+            android:title=""
+            android:icon="@drawable/bg_profile"/>
+    </group>
+
 </menu>
