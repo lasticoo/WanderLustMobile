@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:paddingRight="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="170dp">
+
+            <ImageButton
+                android:id="@+id/button_image"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_selector"
+                android:src="@drawable/dashboard_galeri" />
+
+            <ImageButton
+                android:id="@+id/button_pemesanan"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_selector"
+                android:src="@drawable/dashboard_pemesanan" />
+
+            <ImageButton
+                android:id="@+id/button_berita"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/button_selector"
+                android:src="@drawable/dashboard_kritikdansaran" />
+
+        </LinearLayout>
+    </Toolbar>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+
+</LinearLayout>
