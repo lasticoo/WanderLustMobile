@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-09-25T02:11:48.160532300Z">
+        <DropdownSelection timestamp="2024-10-01T07:24:45.555719200Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=88a3445f0512" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Hp ELITEBOOK i7\.android\avd\Pixel_6_API_28.avd" />
             </handle>
           </Target>
         </DropdownSelection>
