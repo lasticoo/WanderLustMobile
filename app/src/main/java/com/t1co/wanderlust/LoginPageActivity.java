@@ -69,7 +69,7 @@ public class LoginPageActivity extends AppCompatActivity {
         // Menambahkan listener untuk tombol login
         loginButton.setOnClickListener(v -> {
             // Pindah ke DashboardPageActivity saat tombol ditekan
-            Intent intent = new Intent(LoginPageActivity.this, DashboardPageActivity.class);
+            Intent intent = new Intent(LoginPageActivity.this, DashboardNavigation.class);
             startActivity(intent);
         });
 

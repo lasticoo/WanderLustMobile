@@ -19,9 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /> <!-- Menjaga rasio aspek -->
-
-    <!-- Menjaga rasio aspek -->
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/bromoImageView"
