@@ -19,7 +19,7 @@
             android:name=".DashboardNavigation"
             android:exported="false" />
         <activity
-            android:name=".main.DashboardFragment"
+            android:name=".DashboardFragment"
             android:exported="false" />
         <activity
             android:name=".HomePageActivity"

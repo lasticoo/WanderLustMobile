@@ -1,6 +1,7 @@
 package com.t1co.wanderlust;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.EdgeToEdge;
@@ -23,13 +24,18 @@ import androidx.core.view.WindowInsetsCompat;
 public class LoginPageActivity extends AppCompatActivity {
 
     private EditText txtPassword;
-    private boolean isPasswordVisible = false; // Status untuk menunjukkan atau menyembunyikan password
+    private boolean isPasswordVisible = false;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login_page);
+
+
+        sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -38,26 +44,25 @@ public class LoginPageActivity extends AppCompatActivity {
 
         EditText txtUsername = findViewById(R.id.txt_username);
         txtPassword = findViewById(R.id.txt_password);
-        Button loginButton = findViewById(R.id.login_button); // Menambahkan referensi tombol login
-        Button registerButton = findViewById(R.id.belumpunyakun1); // Menambahkan referensi tombol registrasi
+        Button loginButton = findViewById(R.id.login_button);
+        Button registerButton = findViewById(R.id.belumpunyakun1);
 
         setHintOnFocus(txtUsername, "Username");
         setHintOnFocus(txtPassword, "Password");
 
-        // Mengatur listener untuk berpindah fokus saat tombol enter ditekan
+
         txtUsername.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_NEXT ||
                     (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                txtPassword.requestFocus(); // Pindah fokus ke EditText password
-                return true; // Menandakan bahwa event telah ditangani
+                txtPassword.requestFocus();
+                return true;
             }
             return false;
         });
 
-        // Menambahkan listener untuk ikon password
+        // Listener untuk ikon show/hide password
         txtPassword.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                // Mengecek apakah klik terjadi pada drawableEnd
                 if (event.getRawX() >= (txtPassword.getRight() - txtPassword.getCompoundDrawables()[2].getBounds().width())) {
                     togglePasswordVisibility();
                     return true;
@@ -66,21 +71,41 @@ public class LoginPageActivity extends AppCompatActivity {
             return false;
         });
 
-        // Menambahkan listener untuk tombol login
         loginButton.setOnClickListener(v -> {
-            // Pindah ke DashboardPageActivity saat tombol ditekan
-            Intent intent = new Intent(LoginPageActivity.this, DashboardNavigation.class);
-            startActivity(intent);
+            String inputUsername = txtUsername.getText().toString().trim();
+            String inputPassword = txtPassword.getText().toString().trim();
+
+            if (inputUsername.isEmpty() || inputPassword.isEmpty()) {
+                Toast.makeText(LoginPageActivity.this, "Username dan Password harus diisi!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String registeredUsername = sharedPreferences.getString("username", "");
+            String registeredPassword = sharedPreferences.getString("password", "");
+
+            if (inputUsername.equals(registeredUsername) && inputPassword.equals(registeredPassword)) {
+
+                Toast.makeText(LoginPageActivity.this, "Login berhasil!", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(LoginPageActivity.this, DashboardNavigation.class);
+                intent.putExtra("username", inputUsername);  // Kirim username
+                startActivity(intent);
+                finish();
+            } else {
+
+                Toast.makeText(LoginPageActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
+            }
         });
 
-        // Menambahkan listener untuk tombol registrasi
+
         registerButton.setOnClickListener(v -> {
-            // Pindah ke RegisterPageActivity saat tombol ditekan
+
             Intent intent = new Intent(LoginPageActivity.this, RegisterPageActivity.class);
             startActivity(intent);
         });
     }
 
+    // Fungsi untuk toggle show/hide password
     private void togglePasswordVisibility() {
         if (isPasswordVisible) {
             txtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -93,6 +118,7 @@ public class LoginPageActivity extends AppCompatActivity {
         txtPassword.setSelection(txtPassword.getText().length()); // Menjaga kursor di akhir
     }
 
+    // Fungsi untuk menampilkan/mengembalikan hint pada EditText saat fokus
     private void setHintOnFocus(EditText editText, String hint) {
         editText.setText(hint);
         editText.setOnFocusChangeListener((v, hasFocus) -> {
@@ -103,7 +129,6 @@ public class LoginPageActivity extends AppCompatActivity {
             }
         });
 
-        // Tambahkan TextWatcher untuk menghapus hint saat mengetik
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
