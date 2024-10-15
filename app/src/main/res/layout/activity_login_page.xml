@@ -76,7 +76,7 @@
         android:textAlignment="center"
         android:drawableEnd="@drawable/hide"
         android:drawablePadding="4dp"
-        android:paddingEnd="7dp"
+        android:paddingEnd="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
