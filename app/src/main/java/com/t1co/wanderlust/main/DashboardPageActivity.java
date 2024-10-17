@@ -1,10 +1,11 @@
-package com.t1co.wanderlust;
+package com.t1co.wanderlust.main;
 
 import android.os.Bundle;
-import android.view.MenuItem;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ViewFlipper;
+
+import com.t1co.wanderlust.R;
 
 public class DashboardPageActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.t1co.wanderlust;
+package com.t1co.wanderlust.main;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.t1co.wanderlust.R;
 
 public class BeritaFragment extends Fragment {
 

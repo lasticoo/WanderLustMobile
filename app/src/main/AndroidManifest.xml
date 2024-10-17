@@ -17,16 +17,16 @@
         tools:targetApi="31"
         >
         <activity
-            android:name=".ProfilePageActivity"
+            android:name=".main.ProfilePageActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardNavigation"
+            android:name=".main.DashboardNavigation"
             android:exported="false" />
         <activity
-            android:name=".DashboardFragment"
+            android:name=".main.DashboardFragment"
             android:exported="false" />
         <activity
-            android:name=".HomePageActivity"
+            android:name=".main.HomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,13 +35,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterPageActivity"
+            android:name=".main.RegisterPageActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginPageActivity"
+            android:name=".main.LoginPageActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardPageActivity"
+            android:name=".main.DashboardPageActivity"
             android:exported="false" />
     </application>
 

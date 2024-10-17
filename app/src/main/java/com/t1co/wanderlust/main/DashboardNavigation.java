@@ -1,4 +1,4 @@
-package com.t1co.wanderlust;
+package com.t1co.wanderlust.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.t1co.wanderlust.R;
 
 public class DashboardNavigation extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     private BottomNavigationView bottomNavigation;
