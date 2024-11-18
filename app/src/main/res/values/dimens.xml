@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General margins and paddings -->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_horizontal">16dp</dimen>
+
+    <!-- Specific dimensions -->
+    <dimen name="icon_size">30dp</dimen>
+    <dimen name="profile_icon_size">35dp</dimen>
+    <dimen name="toolbar_text_size">20sp</dimen>
+    <dimen name="buttons_margin_top">250dp</dimen>
+    <dimen name="viewflipper_height">220dp</dimen>
+    <dimen name="viewflipper_margin_top">330dp</dimen>
+    <dimen name="recyclerview_margin_top">550dp</dimen>
+
+    <!-- Card dimensions -->
+    <dimen name="card_width">160dp</dimen>
+    <dimen name="card_height">200dp</dimen>
+    <dimen name="card_image_height">120dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+</resources>

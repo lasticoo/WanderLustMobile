@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:allowClearUserData="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/homepagelogo"
@@ -14,19 +15,67 @@
         android:roundIcon="@drawable/homepagelogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.WanderLust"
-        tools:targetApi="31"
-        >
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
         <activity
-            android:name=".main.ProfilePageActivity"
+            android:name=".main.Jadwal.JadwalItemActivity"
             android:exported="false" />
         <activity
-            android:name=".main.DashboardNavigation"
+            android:name=".main.Jadwal.JadwalCariActivity"
             android:exported="false" />
         <activity
-            android:name=".main.DashboardFragment"
+            android:name=".main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".main.HomePageActivity"
+            android:name=".main.ForgotPassword.ForgotPasswordResetPassword"
+            android:exported="false" />
+        <activity
+            android:name=".main.ForgotPassword.ForgotPasswordVerifikasiCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.ForgotPassword.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.LoginRegisterVerifikasi.VerifikasiAkun"
+            android:exported="false" />
+        <activity
+            android:name=".main.PemilihanPaket.PemilihanPaket3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".main.Jadwal.JadwalListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.PemilihanPaket.PemilihanPaket1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".main.Pemesanan.PemesasanPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.Pemesanan.ListPemesanan"
+            android:exported="false" />
+        <activity
+            android:name=".main.Profile.ProfileEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.KritikDanSaran.KritikDanSaranPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.Berita.ContohBerita"
+            android:exported="false" />
+        <activity
+            android:name=".main.History.HistoryPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.Profile.ProfilePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.Dashboard.DashboardNavigation"
+            android:exported="false" />
+        <activity
+            android:name=".main.Dashboard.DashboardFragment"
+            android:exported="false" />
+        <activity
+            android:name=".main.Home.HomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,15 +84,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.RegisterPageActivity"
+            android:name=".main.LoginRegisterVerifikasi.RegisterPageActivity"
             android:exported="false" />
         <activity
-            android:name=".main.LoginPageActivity"
+            android:name=".main.LoginRegisterVerifikasi.LoginPageActivity"
             android:exported="false" />
         <activity
-            android:name=".main.DashboardPageActivity"
+            android:name=".main.Dashboard.DashboardPageActivity"
             android:exported="false" />
     </application>
-
 
 </manifest>

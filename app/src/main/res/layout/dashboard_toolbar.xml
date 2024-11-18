@@ -18,13 +18,14 @@
 
             <ImageButton
                 android:id="@+id/button_image"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
                 android:background="@drawable/button_selector"
-                android:src="@drawable/dashboard_galeri" />
+                android:cropToPadding="true"
+                android:src="@drawable/dashboard_galeri"
+                android:onClick="onHistoryButtonClick" />
 
             <ImageButton
                 android:id="@+id/button_pemesanan"
@@ -34,17 +35,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_selector"
-                android:src="@drawable/dashboard_pemesanan" />
+                android:src="@drawable/dashboard_pemesanan"
+                android:onClick="OnPemesananButtonClick"/>
 
             <ImageButton
-                android:id="@+id/button_berita"
+                android:id="@+id/button_kritik"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_selector"
-                android:src="@drawable/dashboard_kritikdansaran" />
+                android:src="@drawable/dashboard_kritikdansaran"
+                android:onClick="onKritikButtonClick"/>
 
         </LinearLayout>
     </Toolbar>

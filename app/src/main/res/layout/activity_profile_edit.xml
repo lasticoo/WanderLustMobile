@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@drawable/profillatarreal"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/transparant"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="324dp"
+        android:layout_height="435dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintWidth_percent="0.9">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp">
+
+            <FrameLayout
+                android:id="@+id/photoFrame"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logoprofile"
+                    android:text="FOTO"
+                    android:textColor="@android:color/black" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/nameEdit"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@null"
+                android:fontFamily="@font/poppinsbold"
+                android:hint="Username :"
+                android:textSize="13sp"
+                android:padding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/photoFrame" />
+
+            <EditText
+                android:id="@+id/nameEditText"
+                android:hint="nama user"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:textSize="13sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@android:drawable/editbox_background"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/nameEdit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/nameEdit"
+                app:layout_constraintTop_toTopOf="@id/nameEdit"
+ />
+
+            <TextView
+                android:id="@+id/fullnameEdit"
+                android:textSize="13sp"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:fontFamily="@font/poppinsbold"
+                android:hint="Fullname :"
+                android:padding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameEdit" />
+
+            <EditText
+                android:id="@+id/fullnameEditText"
+                android:layout_width="0dp"
+                android:textSize="13sp"
+                android:hint="nama lengkap"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@android:drawable/editbox_background"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/fullnameEdit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fullnameEdit"
+                app:layout_constraintTop_toTopOf="@id/fullnameEdit" />
+
+            <TextView
+                android:id="@+id/emailEdit"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:fontFamily="@font/poppinsbold"
+                android:hint="Email :"
+                android:padding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/fullnameEdit" />
+
+            <TextView
+                android:id="@+id/emailEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@android:drawable/editbox_background"
+                android:hint="Alamat Email"
+                android:textSize="13sp"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/emailEdit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/emailEdit"
+                app:layout_constraintTop_toTopOf="@id/emailEdit" />
+
+            <TextView
+                android:id="@+id/passwordEdit"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:fontFamily="@font/poppinsbold"
+                android:hint="Password :"
+                android:padding="8dp"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailEdit" />
+
+            <TextView
+                android:id="@+id/passwordEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@android:drawable/editbox_background"
+                android:hint="Kata Sandi"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textSize="13sp"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/passwordEdit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/passwordEdit"
+                app:layout_constraintTop_toTopOf="@id/passwordEdit" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_simpan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_gradient"
+                android:text="SIMPAN"
+                android:textColor="@android:color/white"
+                app:itemIconTint="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

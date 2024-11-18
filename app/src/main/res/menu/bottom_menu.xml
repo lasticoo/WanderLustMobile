@@ -7,6 +7,11 @@
             android:icon="@drawable/bg_home"
       />
         <item
+            android:id="@+id/keranjang"
+            android:title=""
+            android:icon="@drawable/checkout"
+            />
+        <item
             android:id="@+id/berita"
             android:title=""
             android:icon="@drawable/bg_berita"/>
@@ -14,5 +19,6 @@
             android:id="@+id/profile"
             android:title=""
             android:icon="@drawable/bg_profile"/>
+
     </group>
 </menu>

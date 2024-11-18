@@ -8,6 +8,9 @@ activity = "1.9.2"
 constraintlayout = "2.1.4"
 circleimageview = "3.1.0"
 materialVersion = "1.13.0-alpha06"
+testng = "6.9.6"
+core = "1.6.1"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -19,5 +22,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 volley = { group = "com.android.volley", name = "volley", version = "1.2.1" }
+core = { group = "androidx.test", name = "core", version.ref = "core" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

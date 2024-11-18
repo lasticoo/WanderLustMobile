@@ -9,4 +9,25 @@
     <style name="BottomNavigationViewStyle">
         <item name="itemIconSize">24dp</item>
     </style>
+
+    <style name="DashboardButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:fontFamily">@font/poppinsregular</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">@dimen/padding_small</item>
+    </style>
+
+    <style name="ViewFlipperImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">#1E1E1E</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:spinnerStyle">@android:style/Widget.Spinner</item>
+    </style>
 </resources>
