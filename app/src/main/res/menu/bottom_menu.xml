@@ -7,7 +7,7 @@
             android:icon="@drawable/bg_home"
       />
         <item
-            android:id="@+id/keranjang"
+            android:id="@+id/statuspembayaran"
             android:title=""
             android:icon="@drawable/checkout"
             />

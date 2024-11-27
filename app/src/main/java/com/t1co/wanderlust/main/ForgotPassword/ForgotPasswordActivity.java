@@ -40,7 +40,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.txt_email_fotgot);
         nextButton = findViewById(R.id.login_button);
 
-        // Initialize the loading dialog
         loadingDialog = new Dialog(this);
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingDialog.setContentView(R.layout.custome_loading_dialog);

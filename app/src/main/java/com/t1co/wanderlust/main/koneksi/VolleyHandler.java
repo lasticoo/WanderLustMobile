@@ -2,6 +2,7 @@ package com.t1co.wanderlust.main.koneksi;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -79,6 +80,7 @@ public class VolleyHandler {
         ));
         addToRequestQueue(stringRequest);
     }
+
     public void makeGetRequestWithHeaders(String url, final Map<String, String> headers, final VolleyCallback callback) {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> callback.onSuccess(response),
@@ -90,6 +92,7 @@ public class VolleyHandler {
         };
         addToRequestQueue(stringRequest);
     }
+
     public void makeGetRequest(String url, final VolleyCallback callback) {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -138,6 +141,7 @@ public class VolleyHandler {
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
     }
+
     public void makePostRequestWithHeaders(String url, final Map<String, String> headers, final Map<String, String> params,
                                            final VolleyCallback callback) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -174,9 +178,19 @@ public class VolleyHandler {
         ));
         addToRequestQueue(stringRequest);
     }
-    public void makeJsonPostRequest(String url, Map<String, String> headers, String jsonBody, final VolleyCallback callback) throws JSONException {
+
+    public void makeJsonPostRequest(String url, Map<String, String> headers, String jsonBody, final VolleyCallback callback) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = (jsonBody == null) ? null : new JSONObject(jsonBody);
+        } catch (JSONException e) {
+            Log.e(TAG, "Error creating JSON object: " + e.getMessage());
+            callback.onError("Error creating JSON object: " + e.getMessage());
+            return; // Keluar dari metode jika terjadi kesalahan
+        }
+
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url,
-                (jsonBody == null) ? null : new JSONObject(jsonBody),
+                jsonObject,
                 response -> callback.onSuccess(response.toString()),
                 error -> callback.onError(error.toString())) {
             @Override
@@ -185,7 +199,11 @@ public class VolleyHandler {
             }
         };
 
-        requestQueue.add(jsonRequest);
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
+                TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        addToRequestQueue(jsonRequest);
     }
-
 }

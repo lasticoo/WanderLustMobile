@@ -1,70 +1,36 @@
 package com.t1co.wanderlust.main.Jadwal;
-
 public class Jadwal {
-    private int id;
-    private String busName;
-    private String busType;
-    private double price;
-    private String departureTime;
-    private String arrivalTime;
-    private int seatsAvailable;
-    private String fromLocation;
-    private String toLocation;
-    private String travelDate;
+    private String idJadwal;
+    private String jurusan;
+    private String tanggalJamBerangkat;
+    private int harga;
+    private int jumlahKursiTersedia;
 
-    public Jadwal(int id, String busName, String busType, double price,
-                  String departureTime, String arrivalTime, int seatsAvailable,
-                  String fromLocation, String toLocation, String travelDate) {
-        this.id = id;
-        this.busName = busName;
-        this.busType = busType;
-        this.price = price;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.seatsAvailable = seatsAvailable;
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.travelDate = travelDate;
+    public Jadwal(String idJadwal, String jurusan, String tanggalJamBerangkat, int harga, int jumlahKursiTersedia) {
+        this.idJadwal = idJadwal;
+        this.jurusan = jurusan;
+        this.tanggalJamBerangkat = tanggalJamBerangkat;
+        this.harga = harga;
+        this.jumlahKursiTersedia = jumlahKursiTersedia;
     }
 
-    // Getters
-    public int getId() {
-        return id;
+    public String getIdJadwal() {
+        return idJadwal;
     }
 
-    public String getBusName() {
-        return busName;
+    public String getJurusan() {
+        return jurusan;
     }
 
-    public String getBusType() {
-        return busType;
+    public String getTanggalJamBerangkat() {
+        return tanggalJamBerangkat;
     }
 
-    public double getPrice() {
-        return price;
+    public int getHarga() {
+        return harga;
     }
 
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public int getSeatsAvailable() {
-        return seatsAvailable;
-    }
-
-    public String getFromLocation() {
-        return fromLocation;
-    }
-
-    public String getToLocation() {
-        return toLocation;
-    }
-
-    public String getTravelDate() {
-        return travelDate;
+    public int getJumlahKursiTersedia() {
+        return jumlahKursiTersedia;
     }
 }

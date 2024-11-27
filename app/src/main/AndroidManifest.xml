@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".main.StatusPembayaran.StatusPembayaranFragment"
+            android:exported="false" />
+        <activity
             android:name=".main.Jadwal.JadwalItemActivity"
             android:exported="false" />
         <activity
@@ -48,7 +51,7 @@
             android:name=".main.PemilihanPaket.PemilihanPaket1Activity"
             android:exported="false" />
         <activity
-            android:name=".main.Pemesanan.PemesasanPageActivity"
+            android:name=".main.Pemesanan.PemesananPageActivity"
             android:exported="false" />
         <activity
             android:name=".main.Pemesanan.ListPemesanan"

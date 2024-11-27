@@ -14,13 +14,12 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <!-- Foto Berita -->
         <ImageView
             android:id="@+id/foto_berita"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop" />
-        <!-- Detail Berita -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,7 +27,6 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <!-- Judul Berita -->
             <TextView
                 android:id="@+id/judul_berita"
                 android:layout_width="match_parent"
@@ -39,7 +37,6 @@
                 android:ellipsize="end"
                 android:maxLines="2" />
 
-            <!-- Tanggal Berita -->
             <TextView
                 android:id="@+id/tgl_berita"
                 android:layout_width="match_parent"
@@ -48,7 +45,6 @@
                 android:textColor="#808080"
                 android:textSize="12sp" />
 
-            <!-- Konten Singkat Berita -->
             <TextView
                 android:id="@+id/konten_berita"
                 android:layout_width="match_parent"

@@ -12,70 +12,58 @@ import com.t1co.wanderlust.R;
 
 import java.util.List;
 
-public class JadwalAdapter extends RecyclerView.Adapter<JadwalAdapter.JadwalViewHolder> {
-    private List<Jadwal> jadwalList;
-    private Context context;
-    private OnItemClickListener listener;
+public class JadwalAdapter extends RecyclerView.Adapter<JadwalAdapter.ViewHolder> {
+    private final List<Jadwal> jadwalList;
+    private final Context context;
+    private final OnDetailClickListener onDetailClickListener;
 
-    public interface OnItemClickListener {
-        void onItemClick(Jadwal jadwal);
+    public interface OnDetailClickListener {
+        void onDetailClick(Jadwal jadwal);
     }
 
-    public JadwalAdapter(Context context, List<Jadwal> jadwalList, OnItemClickListener listener) {
+    public JadwalAdapter(Context context, List<Jadwal> jadwalList, OnDetailClickListener onDetailClickListener) {
         this.context = context;
         this.jadwalList = jadwalList;
-        this.listener = listener;
+        this.onDetailClickListener = onDetailClickListener;
     }
 
     @NonNull
     @Override
-    public JadwalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Ubah ini dari activity_jadwal_list menjadi activity_jadwal_item
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.activity_jadwal_item, parent, false);
-        return new JadwalViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull JadwalViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Jadwal jadwal = jadwalList.get(position);
 
-        holder.tvBusName.setText(jadwal.getBusName());
-        holder.tvBusType.setText(jadwal.getBusType());
-        holder.tvPrice.setText(String.format("Rp %,.0f", jadwal.getPrice()));
-        holder.tvDepartureTime.setText(jadwal.getDepartureTime());
-        holder.tvArrivalTime.setText(jadwal.getArrivalTime());
-        holder.tvSeatsAvailable.setText(jadwal.getSeatsAvailable() + " Kursi Tersedia");
+        holder.keberangkatandantujuan.setText(jadwal.getJurusan());
+        holder.TanggaldanJam.setText(jadwal.getTanggalJamBerangkat());
+        holder.Harga.setText(String.format("%,d IDR", jadwal.getHarga()));
+        holder.jumlah_Kursi_tersedia.setText(String.format("%d Kursi Tersedia", jadwal.getJumlahKursiTersedia()));
 
-        holder.btnBook.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(jadwal);
-            }
-        });
+        holder.btnDetail.setOnClickListener(v -> onDetailClickListener.onDetailClick(jadwal));
     }
 
     @Override
     public int getItemCount() {
-        return jadwalList != null ? jadwalList.size() : 0;
+        return jadwalList.size();
     }
 
-    public static class JadwalViewHolder extends RecyclerView.ViewHolder {
-        TextView tvBusName, tvBusType, tvPrice, tvDepartureTime, tvArrivalTime, tvSeatsAvailable;
-        Button btnBook;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView keberangkatandantujuan, TanggaldanJam, Harga, jumlah_Kursi_tersedia;
+        Button btnDetail;
 
-        public JadwalViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvBusName = itemView.findViewById(R.id.tvBusName);
-            tvBusType = itemView.findViewById(R.id.tvBusType);
-            tvPrice = itemView.findViewById(R.id.tvPrice);
-            tvDepartureTime = itemView.findViewById(R.id.tvDepartureTime);
-            tvArrivalTime = itemView.findViewById(R.id.tvArrivalTime);
-            tvSeatsAvailable = itemView.findViewById(R.id.tvSeatsAvailable);
-            btnBook = itemView.findViewById(R.id.btnBook);
-        }
-    }
 
-    public void updateData(List<Jadwal> newList) {
-        jadwalList = newList;
-        notifyDataSetChanged();
+            keberangkatandantujuan = itemView.findViewById(R.id.keberangkatand_dan_tujuan);
+            TanggaldanJam = itemView.findViewById(R.id.TanggalJam);
+            Harga = itemView.findViewById(R.id.Harga);
+            jumlah_Kursi_tersedia = itemView.findViewById(R.id.jumlahKursiTersedia);
+            btnDetail = itemView.findViewById(R.id.btnDetail);
+        }
     }
 }

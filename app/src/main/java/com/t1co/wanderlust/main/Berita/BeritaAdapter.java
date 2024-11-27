@@ -37,13 +37,10 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
     public void onBindViewHolder(@NonNull BeritaViewHolder holder, int position) {
         BeritaModel berita = beritaList.get(position);
 
-        // Set judul berita
         holder.judulBerita.setText(berita.getJudulBerita());
 
-        // Set tanggal berita
         holder.tglBerita.setText(berita.getTglBerita());
 
-        // Set konten berita dengan menghilangkan HTML tags
         String plainText;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             plainText = Html.fromHtml(berita.getKontenBerita(), Html.FROM_HTML_MODE_LEGACY).toString();
@@ -52,7 +49,6 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
         }
         holder.kontenBerita.setText(plainText);
 
-        // Load foto berita menggunakan Glide
         Glide.with(context)
                 .load(berita.getFotoBerita())
                 .into(holder.fotoBerita);

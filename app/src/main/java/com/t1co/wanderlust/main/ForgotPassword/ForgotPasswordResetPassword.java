@@ -33,7 +33,7 @@ public class ForgotPasswordResetPassword extends AppCompatActivity {
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
 
-    private Dialog loadingDialog;  // Mendeklarasikan loadingDialog di sini
+    private Dialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +119,7 @@ public class ForgotPasswordResetPassword extends AppCompatActivity {
 
         showLoadingDialog();
 
-        VolleyHandler.getInstance(this).makePostRequest(ApiConfig.verifikasi_Otp, params, new VolleyHandler.VolleyCallback() {
+        VolleyHandler.getInstance(this).makePostRequest(ApiConfig.reset_password, params, new VolleyHandler.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 dismissLoadingDialog();
@@ -134,7 +134,6 @@ public class ForgotPasswordResetPassword extends AppCompatActivity {
         });
     }
 
-    // Menampilkan dialog loading
     private void showLoadingDialog() {
         loadingDialog = new Dialog(this);  // Membuat instance loadingDialog
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -151,7 +150,6 @@ public class ForgotPasswordResetPassword extends AppCompatActivity {
         loadingDialog.show();
     }
 
-    // Menyembunyikan dialog loading
     private void dismissLoadingDialog() {
         if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();

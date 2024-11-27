@@ -26,6 +26,7 @@ import com.t1co.wanderlust.R;
 import com.t1co.wanderlust.main.Berita.BeritaFragment;
 import com.t1co.wanderlust.main.Profile.ProfileFragment;
 import com.t1co.wanderlust.main.LoginRegisterVerifikasi.VerifikasiAkun;
+import com.t1co.wanderlust.main.StatusPembayaran.StatusPembayaranFragment;
 import com.t1co.wanderlust.main.koneksi.ApiConfig;
 import com.t1co.wanderlust.main.koneksi.VolleyHandler;
 
@@ -40,12 +41,14 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
     private BottomNavigationView bottomNavigation;
     private DashboardFragment dashboardFragment;
     private ProfileFragment profileFragment;
+    private StatusPembayaranFragment statuspembayaranfragment;
     private BeritaFragment beritaFragment;
     private SharedPreferences sharedPreferences;
     private VolleyHandler volleyHandler;
     private String email;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_dashboard);
@@ -59,6 +62,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
         dashboardFragment = new DashboardFragment();
         profileFragment = new ProfileFragment();
         beritaFragment = new BeritaFragment();
+        statuspembayaranfragment = new StatusPembayaranFragment(); // Inisialisasi fragment
 
         loadFragment(dashboardFragment);
 
@@ -66,6 +70,7 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
         fetchUserDataFromDashboard();
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -80,6 +85,9 @@ public class DashboardNavigation extends AppCompatActivity implements Navigation
 
             case R.id.profile:
                 loadFragment(profileFragment);
+                return true;
+            case R.id.statuspembayaran:
+                loadFragment(statuspembayaranfragment);
                 return true;
 
             default:

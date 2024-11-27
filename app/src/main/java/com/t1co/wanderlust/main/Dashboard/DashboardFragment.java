@@ -50,7 +50,6 @@ public class DashboardFragment extends Fragment {
                         float currentX = event.getX();
                         float deltaX = lastX - currentX;
 
-                        // Swipe threshold
                         if (Math.abs(deltaX) > 150) {
                             if (deltaX > 0) {
                                 viewFlipper.showNext();

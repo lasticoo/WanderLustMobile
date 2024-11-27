@@ -49,7 +49,6 @@ public class ForgotPasswordVerifikasiCodeActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Mengambil email dari Intent
         email = getIntent().getStringExtra("email");
 
         if (email == null || email.isEmpty()) {
@@ -180,8 +179,6 @@ public class ForgotPasswordVerifikasiCodeActivity extends AppCompatActivity {
             loadingDialog.dismiss();
         }
     }
-
-    // Menampilkan dialog sukses
     private void showSuccessDialog(String title, String message) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -215,7 +212,6 @@ public class ForgotPasswordVerifikasiCodeActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    // Menampilkan dialog error
     private void showErrorDialog(String title, String message) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

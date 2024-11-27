@@ -1,0 +1,17 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Tombol Normal -->
+    <item android:state_pressed="false">
+        <shape>
+            <solid android:color="#CC0000" /> <!-- Merah -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Tombol Saat Ditekan -->
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#990000" /> <!-- Merah Gelap -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>
