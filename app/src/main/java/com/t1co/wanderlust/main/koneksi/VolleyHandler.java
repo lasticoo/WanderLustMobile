@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class VolleyHandler {
@@ -186,13 +188,25 @@ public class VolleyHandler {
         } catch (JSONException e) {
             Log.e(TAG, "Error creating JSON object: " + e.getMessage());
             callback.onError("Error creating JSON object: " + e.getMessage());
-            return; // Keluar dari metode jika terjadi kesalahan
+            return;
         }
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url,
                 jsonObject,
                 response -> callback.onSuccess(response.toString()),
-                error -> callback.onError(error.toString())) {
+                error -> {
+                    NetworkResponse networkResponse = error.networkResponse;
+                    if (networkResponse != null && networkResponse.data != null) {
+                        try {
+                            String errorResponse = new String(networkResponse.data, StandardCharsets.UTF_8);
+                            callback.onError(errorResponse);
+                        } catch (Exception e) {
+                            callback.onError("Terjadi kesalahan jaringan");
+                        }
+                    } else {
+                        callback.onError("Terjadi kesalahan jaringan");
+                    }
+                }) {
             @Override
             public Map<String, String> getHeaders() {
                 return headers;

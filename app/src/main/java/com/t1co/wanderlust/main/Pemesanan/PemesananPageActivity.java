@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -23,7 +22,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.t1co.wanderlust.R;
-import com.t1co.wanderlust.main.StatusPembayaran.StatusPembayaranFragment;
+import com.t1co.wanderlust.main.Dashboard.DashboardNavigation1;
 import com.t1co.wanderlust.main.koneksi.ApiConfig;
 import com.t1co.wanderlust.main.koneksi.VolleyHandler;
 
@@ -224,27 +223,25 @@ public class PemesananPageActivity extends AppCompatActivity {
 
     private void submitPemesanan() {
         String idJadwal = etIdJadwal.getText().toString();
-        String idUser  = etIdUser .getText().toString();
+        String idUser = etIdUser.getText().toString();
         String noKursi = spNoKursi.getSelectedItem().toString();
-        String status = "Belum Bayar"; // Perbaiki status sesuai kebutuhan
+        String status = "Belum Bayar";
 
-        // Validasi input
-        if (idJadwal.isEmpty() || idUser .isEmpty() || noKursi.equals("Tidak ada kursi tersedia")) {
+        if (idJadwal.isEmpty() || idUser.isEmpty() || noKursi.equals("Tidak ada kursi tersedia")) {
             Toast.makeText(this, "ID Jadwal, ID User, dan No Kursi tidak boleh kosong", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Membuat JSONObject untuk dikirim
         JSONObject params = new JSONObject();
         try {
-            params.put("id_jadwal", Integer.parseInt(idJadwal)); // Pastikan id_jadwal adalah integer
-            params.put("id_user", Integer.parseInt(idUser )); // Pastikan id_user adalah integer
+            params.put("id_jadwal", Integer.parseInt(idJadwal));
+            params.put("id_user", Integer.parseInt(idUser));
             params.put("no_kursi", noKursi);
             params.put("status", status);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(this, "Error creating JSON object", Toast.LENGTH_SHORT).show();
-            return; // Keluar jika terjadi kesalahan saat membuat JSON
+            return;
         }
 
         String token = sharedPreferences.getString("token", "");
@@ -252,9 +249,10 @@ public class PemesananPageActivity extends AppCompatActivity {
             Toast.makeText(this, "Token tidak ditemukan", Toast.LENGTH_SHORT).show();
             return;
         }
+
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + token);
-        headers.put("Content-Type", "application/json"); // Menetapkan jenis konten
+        headers.put("Content-Type", "application/json");
 
         progressDialog.setMessage("Mengirim pemesanan...");
         progressDialog.show();
@@ -273,55 +271,52 @@ public class PemesananPageActivity extends AppCompatActivity {
                     @Override
                     public void onError(String error) {
                         progressDialog.dismiss();
-                        showCustomErrorDialog("Input Tidak Valid", "OTP harus terdiri dari 6 digit!");
+                        try {
+                            JSONObject errorResponse = new JSONObject(error);
+                            String status = errorResponse.optString("status", "");
+                            String message = errorResponse.optString("message", "");
 
+                            if (status.equals("gagal") && message.equals("Kursi sudah dipesan")) {
+                                showCustomErrorDialog("Pemesanan Gagal", message);
+                            } else {
+                                showCustomErrorDialog("Pemesanan Gagal",
+                                        errorResponse.optString("message", "Terjadi kesalahan, coba lagi nanti."));
+                            }
+                        } catch (JSONException e) {
+                            showCustomErrorDialog("Pemesanan Gagal", "Terjadi kesalahan, coba lagi nanti.");
+                        }
                     }
-                });
+                }
+        );
     }
 
-    private void togglePemesananField (EditText pemesananfield) {
-
-    }
     private void HandleVerificationResponse(String response) {
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(response);
             String status = jsonObject.getString("status");
-
-        if ("success".equals(status)) {
             String message = jsonObject.getString("message");
-            SharedPreferences sharedPreferences = getSharedPreferences("UserPref", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("Belum Bayar", true);
-            editor.apply();
-            new android.os.Handler().post(
-                    () -> {
-                        showSuccessDialog("Pemesanan Berhasil",message);
-                        new android.os.Handler().postDelayed(
-                                () -> {
-                                    Intent intent = new Intent(PemesananPageActivity.this, StatusPembayaranFragment.class);
-                                    startActivity(intent);
-                                    finish();
-                                },
-                                20000
-                        );
-                    }
 
-            );
-        }else {
-            String error = jsonObject.getString("message");
-            showCustomErrorDialog("Pemesanan Gagal", error);
-        }
+            if (status.equals("sukses") && message.equals("Pemesanan berhasil dilakukan")) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("Belum Bayar", true);
+                editor.apply();
+
+                showSuccessDialog("Pemesanan Berhasil", message);
+            } else if (status.equals("gagal") && message.equals("Kursi sudah dipesan")) {
+                showCustomErrorDialog("Pemesanan Gagal", message);
+            } else {
+                showCustomErrorDialog("Pemesanan Gagal", message);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
             showCustomErrorDialog("ERROR!", "Terjadi Kesalahan Data!");
-
         }
-
     }
+
     private void showSuccessDialog(String title, String message) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.custom_verifotp_berhasil);
+        dialog.setContentView(R.layout.custom_error_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCancelable(false);
 
@@ -340,14 +335,11 @@ public class PemesananPageActivity extends AppCompatActivity {
         titleView.setText(title);
         messageView.setText(message);
 
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                Intent intent = new Intent(PemesananPageActivity.this, StatusPembayaranFragment.class);
-                startActivity(intent);
-                finish();
-            }
+        okButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            Intent intent = new Intent(PemesananPageActivity.this, DashboardNavigation1.class);
+            startActivity(intent);
+            finish();
         });
 
         dialog.show();

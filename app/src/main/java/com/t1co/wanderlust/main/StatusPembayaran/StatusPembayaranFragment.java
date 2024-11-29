@@ -4,6 +4,7 @@ import static com.t1co.wanderlust.main.koneksi.ApiConfig.CekStatusPembayaran_URL
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.t1co.wanderlust.R;
+import com.t1co.wanderlust.main.Pembayaran.PembayaranPageActivity;
 import com.t1co.wanderlust.main.koneksi.VolleyHandler;
 
 import org.json.JSONArray;
@@ -66,6 +68,16 @@ public class StatusPembayaranFragment extends Fragment {
         // Load initial data from server
         loadDataFromServer();
 
+        // Tambahkan klik listener untuk item pada RecyclerView
+        adapter.setOnItemClickListener((position) -> {
+            StatusPembayaranModel selectedStatus = statusList.get(position);
+            if ("Belum Bayar".equals(selectedStatus.getStatus())) {
+                Intent intent = new Intent(getContext(), PembayaranPageActivity.class);
+                intent.putExtra("id_pesan", selectedStatus.getIdPesan());
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
@@ -76,7 +88,7 @@ public class StatusPembayaranFragment extends Fragment {
 
         // Initialize VolleyHandler and SharedPreferences
         volleyHandler = VolleyHandler.getInstance(getContext());
-        sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
 
         // Initialize progress dialog (if needed later)
         ProgressDialog progressDialog = new ProgressDialog(getContext());

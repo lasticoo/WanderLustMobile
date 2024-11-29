@@ -1,9 +1,17 @@
 package com.t1co.wanderlust.main.Jadwal;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,14 +42,17 @@ public class JadwalListActivity extends AppCompatActivity {
     private List<Jadwal> jadwalList;
     private SharedPreferences sharedPreferences;
     private VolleyHandler volleyHandler;
+    private androidx.swiperefreshlayout.widget.SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal_list);
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         volleyHandler = VolleyHandler.getInstance(this);
 
@@ -51,9 +62,17 @@ public class JadwalListActivity extends AppCompatActivity {
         String travelDate = intent.getStringExtra("travel_date");
 
         loadJadwalData(fromLocation, toLocation, travelDate);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            loadJadwalData(fromLocation, toLocation, travelDate);
+        });
     }
 
     private void loadJadwalData(String fromLocation, String toLocation, String travelDate) {
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+
         jadwalList = new ArrayList<>();
 
         JSONObject params = new JSONObject();
@@ -63,31 +82,45 @@ public class JadwalListActivity extends AppCompatActivity {
             params.put("caritgl", travelDate);
         } catch (JSONException e) {
             e.printStackTrace();
+            showCustomErrorDialog("Error", "Terjadi kesalahan saat memproses data");
+            swipeRefreshLayout.setRefreshing(false);
+            return;
         }
 
         String token = sharedPreferences.getString("token", "");
         String userId = sharedPreferences.getString("id_user", "");
 
         if (token.isEmpty()) {
-            Toast.makeText(this, "Token tidak ditemukan", Toast.LENGTH_SHORT).show();
+            showCustomErrorDialog("Error", "Token tidak ditemukan");
+            swipeRefreshLayout.setRefreshing(false);
             return;
         }
-
-        // Debug log untuk memeriksa parameter
-        Log.d("JadwalListActivity", "Parameters: " + params.toString());
-        Log.d("JadwalListActivity", "Token: " + token);
-        Log.d("JadwalListActivity", "User ID: " + userId);
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + token);
         headers.put("Content-Type", "application/json");
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiConfig.CARIJADWAL_URL, params,                response -> {
-                    Log.d("JadwalListActivity", "Response: " + response.toString()); // Debug log untuk response
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, ApiConfig.CARIJADWAL_URL, params,
+                response -> {
+                    swipeRefreshLayout.setRefreshing(false);
                     try {
-                        if (response.getString("status").equals("sukses")) {
-                            JSONArray dataArray = response.getJSONArray("data");
+                        String status = response.getString("status");
+                        String message = response.getString("message");
 
+                        if (status.equals("sukses")) {
+                            // Cek apakah data kosong
+                            if (!response.has("data") || response.isNull("data")) {
+                                showCustomErrorDialog("Tidak Ada Jadwal", "Tidak ada jadwal yang tersedia untuk pencarian ini");
+                                return;
+                            }
+
+                            JSONArray dataArray = response.getJSONArray("data");
+                            if (dataArray.length() == 0) {
+                                showCustomErrorDialog("Tidak Ada Jadwal", "Tidak ada jadwal yang tersedia untuk pencarian ini");
+                                return;
+                            }
+
+                            // Sisanya tetap sama dengan kode sebelumnya
                             for (int i = 0; i < dataArray.length(); i++) {
                                 JSONObject dataObject = dataArray.getJSONObject(i);
                                 String idJadwal = dataObject.getString("id_jadwal");
@@ -96,37 +129,37 @@ public class JadwalListActivity extends AppCompatActivity {
                                 int harga = dataObject.getInt("harga");
                                 int jumlahKursiTersedia = dataObject.getInt("jumlah_kursi_tersedia");
 
-                                // Debug log untuk setiap item jadwal
-                                Log.d("JadwalListActivity", "Jadwal Item: ID=" + idJadwal +
-                                        ", Jurusan=" + jurusan +
-                                        ", TanggalJam=" + tanggalJamBerangkat);
-
                                 Jadwal jadwal = new Jadwal(idJadwal, jurusan, tanggalJamBerangkat, harga, jumlahKursiTersedia);
                                 jadwalList.add(jadwal);
                             }
 
-                            adapter = new JadwalAdapter(JadwalListActivity.this, jadwalList, jadwal -> {
-                                navigateToDetail(jadwal, userId);
-                            });
+                            final String idUser = sharedPreferences.getString("id_user", "");
+
+                            adapter = new JadwalAdapter(JadwalListActivity.this, jadwalList, jadwal -> navigateToDetail(jadwal, idUser));
                             recyclerView.setAdapter(adapter);
+
                         } else {
-                            Toast.makeText(JadwalListActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                            showCustomErrorDialog("Pencarian Gagal", message);
                         }
                     } catch (JSONException e) {
-                        Log.e("JadwalListActivity", "JSON Error: " + e.getMessage()); // Debug log untuk error
-                        e.printStackTrace();
-                        Toast.makeText(JadwalListActivity.this, "Error parsing data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        showCustomErrorDialog("Error", "Terjadi kesalahan saat memproses data");
+                        Log.e("JadwalListActivity", "JSON Error: " + e.getMessage());
                     }
                 },
                 error -> {
-                    Log.e("JadwalListActivity", "Volley Error: " + error.toString()); // Debug log untuk error
+                    swipeRefreshLayout.setRefreshing(false);
+                    String errorMessage = "Terjadi kesalahan pada server";
+
                     if (error.networkResponse != null) {
-                        Log.e("JadwalListActivity", "Error Status Code: " + error.networkResponse.statusCode);
-                        Log.e("JadwalListActivity", "Error Data: " + new String(error.networkResponse.data));
+                        if (error.networkResponse.statusCode == 404) {
+                            errorMessage = "Tidak ada jadwal yang ditemukan";
+                        } else if (error.networkResponse.statusCode == 401) {
+                            errorMessage = "Token tidak valid";
+                        }
                     }
-                    Toast.makeText(JadwalListActivity.this,
-                            "Server error: " + error.getMessage(),
-                            Toast.LENGTH_SHORT).show();
+
+                    showCustomErrorDialog("Error", errorMessage);
+                    Log.e("JadwalListActivity", "Volley Error: " + error.toString());
                 }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -134,34 +167,62 @@ public class JadwalListActivity extends AppCompatActivity {
             }
         };
 
-        // Tambahkan timeout yang lebih lama
+        // Sisanya tetap sama
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                30000, // 30 detik timeout
+                30000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
+    private void showCustomErrorDialog(String title, String message) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_error_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
 
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
+        dialog.getWindow().setAttributes(layoutParams);
+
+        ImageView iconView = dialog.findViewById(R.id.dialogIcon);
+        TextView titleView = dialog.findViewById(R.id.dialogTitle);
+        TextView messageView = dialog.findViewById(R.id.dialogMessage);
+        Button okButton = dialog.findViewById(R.id.dialogButton);
+
+        iconView.setImageResource(R.drawable.ic_error);
+        titleView.setText(title);
+        messageView.setText(message);
+        okButton.setOnClickListener(v -> {
+            dialog.dismiss();
+
+            // Kondisi untuk kembali ke activity sebelumnya pada error tertentu
+            if (title.equals("Tidak Ada Jadwal") ||
+                    title.equals("Pencarian Gagal") ||
+                    title.equals("Error") ||
+                    title.equals("Token tidak ditemukan")) {
+                onBackPressed(); // Kembali ke activity sebelumnya
+            }
+        });
+
+        dialog.show();
+    }
 
     private void navigateToDetail(Jadwal jadwal, String userId) {
+        if (jadwal.getJumlahKursiTersedia() <= 0) {
+            showCustomErrorDialog("Kursi Penuh", "Maaf, kursi untuk jadwal ini sudah penuh. Silakan pilih jadwal lain.");
+            return;
+        }
+
         Intent intent = new Intent(this, PemesananPageActivity.class);
         intent.putExtra("id_jadwal", jadwal.getIdJadwal());
         intent.putExtra("id_user", userId);
         intent.putExtra("jurusan", jadwal.getJurusan());
         intent.putExtra("tanggal_jam", jadwal.getTanggalJamBerangkat());
         intent.putExtra("harga", jadwal.getHarga());
-        intent.putExtra("jumlah_kursi", 5);
-
-        // Tambahkan log untuk memastikan semua data terkirim
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            for (String key : extras.keySet()) {
-                Log.d("JadwalListActivity", "Extra: " + key + " = " + extras.get(key));
-            }
-        }
-
+        intent.putExtra("jumlah_kursi", jadwal.getJumlahKursiTersedia());
         startActivity(intent);
-    }
-}
+    }}

@@ -18,6 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".main.Pembayaran.KonfirmasiPembayaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.Pembayaran.PembayaranPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.StatusPembayaran.StatusPembayaranFragment"
             android:exported="false" />
         <activity
@@ -73,6 +79,9 @@
             android:exported="false" />
         <activity
             android:name=".main.Dashboard.DashboardNavigation"
+            android:exported="false" />
+        <activity
+            android:name=".main.Dashboard.DashboardNavigation1"
             android:exported="false" />
         <activity
             android:name=".main.Dashboard.DashboardFragment"

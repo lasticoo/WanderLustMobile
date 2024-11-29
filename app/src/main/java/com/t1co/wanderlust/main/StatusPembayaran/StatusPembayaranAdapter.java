@@ -18,6 +18,17 @@ public class StatusPembayaranAdapter extends RecyclerView.Adapter<StatusPembayar
 
     private List<StatusPembayaranModel> statusList;
     private Context context;
+    private OnItemClickListener onItemClickListener; // Listener untuk klik item
+
+    // Interface untuk menangani klik item
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // Setter untuk listener klik item
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
     public StatusPembayaranAdapter(List<StatusPembayaranModel> statusList, Context context) {
         this.statusList = statusList;
@@ -28,7 +39,7 @@ public class StatusPembayaranAdapter extends RecyclerView.Adapter<StatusPembayar
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_status_pembayaran, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onItemClickListener);
     }
 
     @Override
@@ -49,8 +60,18 @@ public class StatusPembayaranAdapter extends RecyclerView.Adapter<StatusPembayar
             layoutParams.setMargins(0, 0, 0, 8); // Tidak ada margin top untuk item lainnya
         }
         holder.itemView.setLayoutParams(layoutParams);
-    }
 
+        // Menentukan apakah tombol bisa diklik berdasarkan status
+        if ("Belum Bayar".equals(item.getStatus())) {
+            holder.itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position);
+                }
+            });
+        } else {
+            holder.itemView.setOnClickListener(null); // Nonaktifkan klik jika status bukan "Belum Bayar"
+        }
+    }
 
     @Override
     public int getItemCount() {
@@ -62,7 +83,7 @@ public class StatusPembayaranAdapter extends RecyclerView.Adapter<StatusPembayar
         TextView tvIdPesan, tvTujuan, tvWaktu, tvHarga, tvStatus;
         Button btnBatal;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
 
             tvIdPesan = itemView.findViewById(R.id.tvIdPesan);
@@ -71,6 +92,13 @@ public class StatusPembayaranAdapter extends RecyclerView.Adapter<StatusPembayar
             tvHarga = itemView.findViewById(R.id.tvHarga);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             btnBatal = itemView.findViewById(R.id.btnBatal);
+
+            // Tambahkan listener klik item pada root view jika diperlukan
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

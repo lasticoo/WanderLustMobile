@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".main.StatusPembayaran.StatusPembayaranFragment"
-    android:background="@drawable/statusbayar">
+    android:background="@drawable/statusbayar"
+    android:id="@+id/fragment_container">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pembayaran"
+    tools:context=".main.Pembayaran.PembayaranPageActivity">
+
+    <!-- CardView untuk menampilkan informasi -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="90dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            >
+
+            <!-- ID Pesan -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID Pesan"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id= "@+id/idpesan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E161"
+                android:textColor="@android:color/black"
+                android:paddingBottom="8dp" />
+
+            <!-- Tanggal Keberangkatan -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tgl. Keberangkatan"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tglkeberangkatan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minggu, 29/09/2024"
+                android:textColor="@android:color/black"
+                android:paddingBottom="8dp" />
+
+            <!-- Keberangkatan - Tujuan -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keberangkatan - Tujuan"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/keberangkatand_dan_tujuan1"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="Jl. Syirotol - Bromo Tengger"
+                android:textColor="@android:color/black" />
+
+            <!-- Total Pembayaran -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Pembayaran"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalpembayaran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp. 1.700.000"
+                android:textColor="@android:color/black"
+                android:paddingBottom="8dp" />
+
+            <!-- Status Bayar -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status Bayar"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statusbayar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belum Bayar"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Tombol Konfirmasi Pembayaran -->
+
+
+    <!-- Tombol Kembali -->
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/bg_gradient"
+        android:text="Konfirmasi Pembayaran"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_info"
+        app:layout_constraintVertical_bias="0.820" />
+
+    <ImageButton
+        android:id="@+id/button_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/back"
+        android:scaleType="fitCenter"
+        android:background="@drawable/bg_gradient"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
