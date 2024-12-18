@@ -45,10 +45,15 @@ dependencies {
     implementation(libs.volley)
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
-
-
-
+    implementation ("com.itextpdf:itext7-core:7.2.5")
+    implementation ("ch.qos.logback:logback-classic:1.2.3")
 }
+
+
+
+
+
+
 
 
 

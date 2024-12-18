@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.t1co.wanderlust.R;
-import com.t1co.wanderlust.main.History.HistoryPageActivity;
+import com.t1co.wanderlust.main.Galeri.GaleriPageActivity;
 import com.t1co.wanderlust.main.Jadwal.JadwalCariActivity;
 import com.t1co.wanderlust.main.KritikDanSaran.KritikDanSaranPageActivity;
 
@@ -31,8 +31,6 @@ public class DashboardPageActivity extends AppCompatActivity implements View.OnC
         initButtons();
 
     }
-
-
 
     private void initViewFlipper() {
         viewFlipper = findViewById(R.id.viewFlipper);
@@ -81,7 +79,7 @@ public class DashboardPageActivity extends AppCompatActivity implements View.OnC
 
         if (viewId == R.id.button_image) {
             Log.d(TAG, "History button clicked");
-            startActivity(new Intent(this, HistoryPageActivity.class));
+            startActivity(new Intent(this, GaleriPageActivity.class));
         } else if (viewId == R.id.button_kritik) {
             Log.d(TAG, "Kritik dan Saran button clicked");
             startActivity(new Intent(this, KritikDanSaranPageActivity.class));

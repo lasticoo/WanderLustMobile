@@ -24,7 +24,7 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/button_selector"
                 android:cropToPadding="true"
-                android:src="@drawable/dashboard_galeri"
+                android:src="@drawable/galery"
                 android:onClick="onHistoryButtonClick" />
 
             <ImageButton
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_selector"
-                android:src="@drawable/dashboard_kritikdansaran"
+                android:src="@drawable/feedback"
                 android:onClick="onKritikButtonClick"/>
 
         </LinearLayout>

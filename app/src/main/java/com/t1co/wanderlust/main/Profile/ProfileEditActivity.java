@@ -40,7 +40,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         editUsername = findViewById(R.id.nameEditText);
         editNamaUser = findViewById(R.id.fullnameEditText);
         editEmail = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
         btnUpdate = findViewById(R.id.btn_simpan);
 
         btnUpdate.setOnClickListener(v -> updateUserProfile());
@@ -91,7 +90,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 editUsername.setText(userData.getString("username"));
                 editNamaUser.setText(userData.getString("nama_user"));
                 editEmail.setText(userData.getString("email"));
-                passwordEditText.setText(userData.getString("password"));
             } catch (JSONException e) {
                 Log.e(TAG, "Error updating UI: " + e.getMessage());
                 showToast("Terjadi kesalahan saat menampilkan data");
@@ -103,7 +101,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         String username = editUsername.getText().toString().trim();
         String namaUser = editNamaUser.getText().toString().trim();
         String email = editEmail.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+
 
         if (username.isEmpty() || namaUser.isEmpty() || email.isEmpty()) {
             showToast("Semua field harus diisi");

@@ -1,7 +1,10 @@
 package com.t1co.wanderlust.main.LoginRegisterVerifikasi;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -9,9 +12,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,7 +102,7 @@ public class LoginPageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        forgotpasswordbutton.setOnClickListener(v ->{
+        forgotpasswordbutton.setOnClickListener(v -> {
             Intent intent = new Intent(LoginPageActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         });
@@ -106,7 +113,7 @@ public class LoginPageActivity extends AppCompatActivity {
         String password = txtPassword.getText().toString().trim();
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(LoginPageActivity.this, "Email dan Password harus diisi!", Toast.LENGTH_SHORT).show();
+            showCustomErrorDialog("Login Gagal", "Masukkan email dan password terlebih dahulu.");
             return;
         }
 
@@ -203,8 +210,35 @@ public class LoginPageActivity extends AppCompatActivity {
                     editText.setHint("");
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {}
         });
+    }
+
+    private void showCustomErrorDialog(String title, String message) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_error_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
+        dialog.getWindow().setAttributes(layoutParams);
+
+        ImageView iconView = dialog.findViewById(R.id.dialogIcon);
+        TextView titleView = dialog.findViewById(R.id.dialogTitle);
+        TextView messageView = dialog.findViewById(R.id.dialogMessage);
+        Button okButton = dialog.findViewById(R.id.dialogButton);
+
+        iconView.setImageResource(R.drawable.ic_error);
+        titleView.setText(title);
+        messageView.setText(message);
+
+        okButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 }

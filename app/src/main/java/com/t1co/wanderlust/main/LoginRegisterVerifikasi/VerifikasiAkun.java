@@ -74,7 +74,7 @@ public class VerifikasiAkun extends AppCompatActivity {
             otpFields[i].setOnTouchListener((v, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     Drawable[] drawables = otpFields[index].getCompoundDrawables();
-                    if (drawables.length > 2 && drawables[2] != null) { // Memastikan drawable tidak null
+                    if (drawables.length > 2 && drawables[2] != null) {
                         if (event.getRawX() >= (otpFields[index].getRight() - drawables[2].getBounds().width())) {
                             toggleOtpField(otpFields[index]);
                             return true;

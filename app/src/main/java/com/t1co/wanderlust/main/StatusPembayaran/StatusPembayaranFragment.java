@@ -1,6 +1,5 @@
 package com.t1co.wanderlust.main.StatusPembayaran;
 
-import static com.t1co.wanderlust.main.koneksi.ApiConfig.CekStatusPembayaran_URL;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.t1co.wanderlust.R;
 import com.t1co.wanderlust.main.Pembayaran.PembayaranPageActivity;
+import com.t1co.wanderlust.main.koneksi.ApiConfig;
 import com.t1co.wanderlust.main.koneksi.VolleyHandler;
 
 import org.json.JSONArray;
@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StatusPembayaranFragment extends Fragment {
+public class StatusPembayaranFragment extends Fragment implements StatusPembayaranAdapter.RefreshCallback {
 
     private RecyclerView recyclerViewStatus;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -46,29 +46,25 @@ public class StatusPembayaranFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_status_pembayaran_page, container, false);
 
-        // Initialize views
         recyclerViewStatus = view.findViewById(R.id.recyclerViewStatus);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
-        // Set up RecyclerView with LinearLayoutManager
         recyclerViewStatus.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Initialize status list and adapter
         statusList = new ArrayList<>();
         adapter = new StatusPembayaranAdapter(statusList, getContext());
         recyclerViewStatus.setAdapter(adapter);
 
-        // Initialize SharedPreferences and VolleyHandler
+        // Set the RefreshCallback to the adapter
+        adapter.setRefreshCallback(this);
+
         sharedPreferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         volleyHandler = VolleyHandler.getInstance(getContext());
 
-        // Set up swipe-to-refresh
         swipeRefreshLayout.setOnRefreshListener(this::loadDataFromServer);
 
-        // Load initial data from server
         loadDataFromServer();
 
-        // Tambahkan klik listener untuk item pada RecyclerView
         adapter.setOnItemClickListener((position) -> {
             StatusPembayaranModel selectedStatus = statusList.get(position);
             if ("Belum Bayar".equals(selectedStatus.getStatus())) {
@@ -81,23 +77,13 @@ public class StatusPembayaranFragment extends Fragment {
         return view;
     }
 
-    private void initializeViews() {
-        // View initialization from XML
-        recyclerViewStatus = getView().findViewById(R.id.recyclerViewStatus);
-        swipeRefreshLayout = getView().findViewById(R.id.swipeRefreshLayout);
-
-        // Initialize VolleyHandler and SharedPreferences
-        volleyHandler = VolleyHandler.getInstance(getContext());
-        sharedPreferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
-
-        // Initialize progress dialog (if needed later)
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
+    @Override
+    public void onDataRefreshNeeded() {
+        // Reload the data when the adapter triggers a refresh
+        loadDataFromServer();
     }
 
     private void loadDataFromServer() {
-        // Get the token from SharedPreferences
         String token = sharedPreferences.getString("token", "");
         if (token.isEmpty()) {
             Toast.makeText(getContext(), "Token tidak ditemukan", Toast.LENGTH_SHORT).show();
@@ -105,17 +91,14 @@ public class StatusPembayaranFragment extends Fragment {
             return;
         }
 
-        // Set up headers with the token for the request
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + token);
         headers.put("Content-Type", "application/json");
 
-        // Make a GET request using VolleyHandler
-        volleyHandler.makeGetRequestWithHeaders(CekStatusPembayaran_URL, headers, new VolleyHandler.VolleyCallback() {
+        volleyHandler.makeGetRequestWithHeaders(ApiConfig.CekStatusPembayaran_URL, headers, new VolleyHandler.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
-                    // Parse the response from the server
                     JSONObject response = new JSONObject(result);
                     if (response.getString("status").equals("sukses")) {
                         JSONArray data = response.getJSONArray("data");

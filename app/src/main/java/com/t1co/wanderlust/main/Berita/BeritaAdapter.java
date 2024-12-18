@@ -1,6 +1,7 @@
 package com.t1co.wanderlust.main.Berita;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,6 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
         BeritaModel berita = beritaList.get(position);
 
         holder.judulBerita.setText(berita.getJudulBerita());
-
         holder.tglBerita.setText(berita.getTglBerita());
 
         String plainText;
@@ -52,6 +52,17 @@ public class BeritaAdapter extends RecyclerView.Adapter<BeritaAdapter.BeritaView
         Glide.with(context)
                 .load(berita.getFotoBerita())
                 .into(holder.fotoBerita);
+
+        // Tambahkan klik listener untuk item
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ContohBerita.class);
+            // Kirim data berita ke kelas ContohBerita
+            intent.putExtra("judul", berita.getJudulBerita());
+            intent.putExtra("tanggal", berita.getTglBerita());
+            intent.putExtra("konten", berita.getKontenBerita());
+            intent.putExtra("foto", berita.getFotoBerita());
+            context.startActivity(intent);
+        });
     }
 
     @Override

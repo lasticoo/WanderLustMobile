@@ -16,4 +16,10 @@
     <color name="black">#FF000000</color>
     <color name="transparant">#00000000</color>
     <color name="box">#D9D9D9</color>
+    <color name="hijau">#4CAF50</color>
+    <color name="merah">#F44336</color>
+    <color name="merah_muda">#FFCDD2</color>
+    <color name="hijau_muda">#81C784</color>
+
+
 </resources>

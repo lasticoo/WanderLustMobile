@@ -142,7 +142,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <EditText
+            <TextView
                 android:id="@+id/etIdPesan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

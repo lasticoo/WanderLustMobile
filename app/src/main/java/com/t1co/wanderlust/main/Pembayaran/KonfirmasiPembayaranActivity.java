@@ -1,5 +1,7 @@
 package com.t1co.wanderlust.main.Pembayaran;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -22,11 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.VolleyError;
 import com.t1co.wanderlust.R;
 import com.t1co.wanderlust.main.Dashboard.DashboardNavigation1;
-import com.t1co.wanderlust.main.Pemesanan.PemesananPageActivity;
 import com.t1co.wanderlust.main.koneksi.ApiConfig;
 import com.t1co.wanderlust.main.koneksi.VolleyHandler;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,10 +36,9 @@ import java.util.Locale;
 import java.util.Map;
 
 public class KonfirmasiPembayaranActivity extends AppCompatActivity {
-    private EditText etTanggalPembayaran, etJamPembayaran, etNoResi,etIdPesan ;
+    private EditText etTanggalPembayaran, etJamPembayaran, etNoResi;
     private ImageView ivDatePicker, ivTimePicker;
-    private TextView tvKeberangkatan, tvTujuan, tvTanggalBerangkat, tvHarga, tvStatusPembayaran,tvidPesan;
-
+    private TextView tvKeberangkatan, tvTujuan, tvTanggalBerangkat, tvHarga, tvStatusPembayaran, tvIdPesan, etIdPesan;
     private Button btnSimpan;
 
     @Override
@@ -47,7 +46,27 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konfirmasi_pembayaran);
 
-        tvidPesan = findViewById(R.id.tvIdPesan);
+        initViews();
+
+        Intent intent = getIntent();
+        String idPesan = intent.getStringExtra("id_pesan");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+
+        ivDatePicker.setOnClickListener(v -> showDatePicker());
+        ivTimePicker.setOnClickListener(v -> showTimePicker());
+        btnSimpan.setOnClickListener(v -> konfirmasiPembayaran());
+
+        if (idPesan != null && !idPesan.isEmpty()) {
+            getDetailPembayaran(idPesan, token);
+        } else {
+            Toast.makeText(this, "ID Pemesanan tidak ditemukan.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initViews() {
+        tvIdPesan = findViewById(R.id.tvIdPesan);
         etIdPesan = findViewById(R.id.etIdPesan);
         etTanggalPembayaran = findViewById(R.id.etTanggalPembayaran);
         etJamPembayaran = findViewById(R.id.etJamPembayaran);
@@ -59,21 +78,9 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity {
         tvTanggalBerangkat = findViewById(R.id.tvTanggalBerangkat);
         tvHarga = findViewById(R.id.harga);
         tvStatusPembayaran = findViewById(R.id.tvStatusPembayaran);
-
         btnSimpan = findViewById(R.id.btnSimpan);
-
-        ivDatePicker.setOnClickListener(v -> showDatePicker());
-        ivTimePicker.setOnClickListener(v -> showTimePicker());
-        btnSimpan.setOnClickListener(v -> konfirmasiPembayaran());
-
-        // Ambil ID Pesan dari Intent
-        String idPesan = getIntent().getStringExtra("id_pesan"); // Ambil dari Intent
-        if (idPesan != null && !idPesan.isEmpty()) {
-            getDetailPembayaran(idPesan);
-        } else {
-            Toast.makeText(this, "ID Pesan tidak ditemukan", Toast.LENGTH_SHORT).show();
-        }
     }
+
     private void showDatePicker() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -105,58 +112,47 @@ public class KonfirmasiPembayaranActivity extends AppCompatActivity {
                 hour, minute, true);
         timePickerDialog.show();
     }
-    private void getDetailPembayaran(String idPesan) {
-        SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
-        String token = sharedPreferences.getString("token", "");
+
+    private void getDetailPembayaran(String idPesan, String token) {
+        String url = ApiConfig.PEMBAYARAN_URL + "?id_pesan=" + idPesan;
+
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + token);
-
-        String url = ApiConfig.CekStatusPembayaran_URL + "?id_pesan=" + idPesan;
 
         VolleyHandler.getInstance(this).makeGetRequestWithHeaders(url, headers, new VolleyHandler.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
                     JSONObject jsonResponse = new JSONObject(result);
-                    String status = jsonResponse.getString("status");
-                    String message = jsonResponse.getString("message");
+                    if (jsonResponse.getString("status").equals("sukses")) {
+                        JSONObject data = jsonResponse.getJSONObject("data");
 
-                    Toast.makeText(KonfirmasiPembayaranActivity.this, message, Toast.LENGTH_SHORT).show();
+                        if (data != null) {
+                            tvTanggalBerangkat.setText(data.getString("tgl_berangkat"));
+                            tvKeberangkatan.setText(data.getString("Keberangkatan"));
+                            tvTujuan.setText(data.getString("Tujuan"));
+                            tvHarga.setText("Rp. " + data.getString("harga"));
+                            tvStatusPembayaran.setText(data.getString("status"));
+                            tvIdPesan.setText(data.getString("id_pesan"));
+                            etIdPesan.setText(data.getString(("id_pesan")));
 
-                    if ("sukses".equals(status)) {
-                        JSONArray dataArray = jsonResponse.getJSONArray("data");
-
-                        if (dataArray.length() > 0) {
-                            // Misalnya hanya ingin mengambil data pertama
-                            JSONObject firstItem = dataArray.getJSONObject(0);
-
-                            // Update UI
-                            tvidPesan.setText(firstItem.getString("id_pesan"));
-                            etIdPesan.setText(firstItem.getString("id_pesan"));
-                            tvKeberangkatan.setText(firstItem.getString("rute").split(" - ")[0].trim());
-                            tvTujuan.setText(firstItem.getString("rute").split(" - ")[1].trim());
-                            tvTanggalBerangkat.setText(firstItem.getString("waktu_berangkat").split(" | ")[0]);
-                            tvHarga.setText(String.valueOf(firstItem.getInt("harga")));
-                            tvStatusPembayaran.setText(firstItem.getString("status"));
                         } else {
-                            Toast.makeText(KonfirmasiPembayaranActivity.this, "Tidak ada data ditemukan", Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "Data tidak ditemukan.");
                         }
                     } else {
-                        Toast.makeText(KonfirmasiPembayaranActivity.this, "Gagal mendapatkan data: " + message, Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error: " + jsonResponse.getString("message"));
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(KonfirmasiPembayaranActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "JSON Parsing error: " + e.getMessage());
                 }
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(KonfirmasiPembayaranActivity.this, error, Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Error: " + error);
             }
         });
     }
-
 
 
     private void konfirmasiPembayaran() {

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="235dp"
             android:layout_marginLeft="60dp"
-            android:text="History"
+            android:text="Galeri"
             android:background="@drawable/button_selector"
             android:fontFamily="@font/poppinsregular"
             android:textColor="@color/black"/>
@@ -138,15 +138,6 @@
                                 android:textSize="12sp"
                                 android:fontFamily="@font/poppinsregular"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Rp 10.000"
-                                android:textColor="#1976D2"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/poppinsregular"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -192,15 +183,6 @@
                                 android:textSize="12sp"
                                 android:fontFamily="@font/poppinsregular"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Rp 10.000"
-                                android:textColor="#1976D2"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/poppinsregular"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -246,15 +228,6 @@
                                 android:textSize="12sp"
                                 android:fontFamily="@font/poppinsregular"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Rp 10.000"
-                                android:textColor="#1976D2"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/poppinsregular"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -300,15 +273,6 @@
                                 android:textSize="12sp"
                                 android:fontFamily="@font/poppinsregular"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Rp 10.000"
-                                android:textColor="#1976D2"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/poppinsregular"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -354,15 +318,6 @@
                                 android:textSize="12sp"
                                 android:fontFamily="@font/poppinsregular"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Rp 10.000"
-                                android:textColor="#1976D2"
-                                android:textStyle="bold"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/poppinsregular"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -404,16 +359,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:text="Gunung Bromo"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/poppinsregular"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="Rp 10.000"
-                                android:textColor="#1976D2"
-                                android:textStyle="bold"
                                 android:textSize="12sp"
                                 android:fontFamily="@font/poppinsregular"/>
 

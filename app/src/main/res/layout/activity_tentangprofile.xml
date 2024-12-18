@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/about">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".main.Profile.tentangprofile"
+        android:layout_marginTop="120dp">
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/logowanderlusttentang"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/aboutTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Tentang Wanderlust"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoImage" />
+
+        <TextView
+            android:id="@+id/slogan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Bromo Lebih Dekat, Perjalanan Lebih Nyaman"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aboutTitle" />
+
+        <TextView
+            android:id="@+id/philosophyTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="Filosofi Wanderlust"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/slogan" />
+
+        <TextView
+            android:id="@+id/philosophyDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:text="Wanderlust adalah jasa penyedia layanan wisata khusus ke Gunung Bromo dan sekitarnya, dengan titik keberangkatan dari Jember. Kami hadir untuk memenuhi jiwa petualang anda yang ingin menjelajahi keindahan alam Bromo Tengger Semeru tanpa harus pusing mengurus persiapan perjalanan anda menuju Bromo."
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/philosophyTitle" />
+
+        <TextView
+            android:id="@+id/logoPhilosophy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="Berikut adalah filosofi dari elemen-elemen yang terdapat pada logo ini:"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/philosophyDescription" />
+
+        <!-- Filosofi List Huruf W -->
+        <TextView
+            android:id="@+id/list1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:text="1. Huruf &#34;W&#34; dengan Warna Biru: Huruf &#34;W&#34; mewakili inisial dari nama Wanderlust. Warna biru yang dominan melambangkan ketenangan, kepercayaan, dan kestabilan."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoPhilosophy" />
+
+        <!-- Filosofi List Gunung -->
+        <TextView
+            android:id="@+id/list2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:text="2. Gunung di Bagian Atas Huruf &#34;W&#34;: Ilustrasi gunung di atas huruf &#34;W&#34; menggambarkan tujuan utama dari Wanderlust, yaitu Gunung Bromo. Gunung juga melambangkan kekuatan, daya tahan, dan keindahan alam yang memantang."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list1" />
+
+        <!-- Filosofi List Warna Putih -->
+        <TextView
+            android:id="@+id/list3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="3. Warna Putih pada Gunung: Warna putih pada puncak gunung melambangkan kemurnian, kebersihan, dan kualitas pelayanan yang tinggi. Wanderlust berupaya memberikan pengalaman perjalanan yang memuaskan dan tak terlupakan bagi setiap pelanggan."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list2"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

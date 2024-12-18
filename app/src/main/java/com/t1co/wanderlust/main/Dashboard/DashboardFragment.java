@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.t1co.wanderlust.R;
-import com.t1co.wanderlust.main.History.HistoryPageActivity;
+import com.t1co.wanderlust.main.Galeri.GaleriPageActivity;
 import com.t1co.wanderlust.main.Jadwal.JadwalCariActivity;
 import com.t1co.wanderlust.main.KritikDanSaran.KritikDanSaranPageActivity;
 
@@ -95,7 +95,7 @@ public class DashboardFragment extends Fragment {
 
     public void onHistoryButtonClick(View view) {
         Log.d(TAG, "History button clicked");
-        Intent intent = new Intent(getActivity(), HistoryPageActivity.class);
+        Intent intent = new Intent(getActivity(), GaleriPageActivity.class);
         startActivity(intent);
     }
 

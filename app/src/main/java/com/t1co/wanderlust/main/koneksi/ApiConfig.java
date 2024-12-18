@@ -6,8 +6,8 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.Map;
 
 public class ApiConfig {
-    private static final String BASE_IP = "172.20.144.1";
-    private static final String BASE_URL = "http://" + BASE_IP + "/wanderlust2/apiwanderlustmobile/";
+    private static final String BASE_IP = "192.168.1.17";
+    private static final String BASE_URL = "http://" + BASE_IP + "/wanderlust/apiwanderlustmobile/";
 
     public static final String REGISTER_URL = BASE_URL + "login_register/buatakun.php";
     public static final String LOGIN_URL = BASE_URL + "login_register/login.php";
@@ -26,6 +26,10 @@ public class ApiConfig {
     public static final String CekStatusPembayaran_URL = BASE_URL + "pemesanan/cekstatuspembayaran.php";
     public static final String PEMBAYARAN_URL = BASE_URL + "pembayaran/pembayaran.php";
     public static final String KONFIRMASIPEMBAYARAN = BASE_URL + "pembayaran/konfirmasipembayaran.php";
+    public static final String HISTORY = BASE_URL + "history.php";
+    public static final String BATALPEMESANAN = BASE_URL + "pemesanan/batalpesan.php";
+    public static final String LOGOUT_URL = BASE_URL + "logout.php";
+
 
     public static StringRequest createRegisterRequest(Map<String, String> params,
                                                       Response.Listener<String> responseListener,

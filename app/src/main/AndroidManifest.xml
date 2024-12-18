@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +19,23 @@
         android:theme="@style/Theme.WanderLust"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".main.Profile.tentangprofile"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.t1co.wanderlust.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".main.CetakTiket.CetakTiketActivity"
+            android:exported="false" />
         <activity
             android:name=".main.Pembayaran.KonfirmasiPembayaranActivity"
             android:exported="false" />
@@ -72,7 +91,7 @@
             android:name=".main.Berita.ContohBerita"
             android:exported="false" />
         <activity
-            android:name=".main.History.HistoryPageActivity"
+            android:name=".main.Galeri.GaleriPageActivity"
             android:exported="false" />
         <activity
             android:name=".main.Profile.ProfilePageActivity"

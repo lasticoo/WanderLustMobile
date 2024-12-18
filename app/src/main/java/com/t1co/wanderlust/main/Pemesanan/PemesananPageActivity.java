@@ -35,7 +35,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class PemesananPageActivity extends AppCompatActivity {
-    private EditText etIdJadwal, etEmail, etIdUser ;
+    private TextView etIdJadwal, etEmail, etIdUser ;
     private Spinner spNoKursi;
     private TextView tvKursiStatus;
     private Button btnPesan;

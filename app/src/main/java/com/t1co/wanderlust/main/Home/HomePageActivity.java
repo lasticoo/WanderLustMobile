@@ -22,6 +22,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, LoginPageActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
